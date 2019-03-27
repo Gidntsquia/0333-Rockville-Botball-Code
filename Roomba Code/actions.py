@@ -2,52 +2,68 @@ from wallaby import *
 import constants as c
 import sensors as s
 import movement as m
+import gyro as g
 import utils as u
 
-def my_command():
-    print "Starting my_command()"
-    
-    
-    print "Finished my_command()"
-
-def point_a_to_b():
-    pass
-    
 def nuclearfusion():
-    s.lfollow_lcliff_smooth_until_bump()
-    
-def gasvalve():
-    s.forwards_until_black_rfcliff_safe()
-    s.forwards_until_white_rfcliff_safe()
-    s.forwards_until_black_rfcliff_safe()
-    s.align_close_fcliffs()
-    s.forwards_until_white_rfcliff_safe()
-    m.drive(500)
-    m.turn_left(1500)
-    s.lfollow_lfcliff_smooth_until_rfcliff_senses_white()
+    s.wfollow_left_until_black_right_front()
+
+
+def get_gas_valve():
+    s.wfollow_right_until_black_left_front(9999)
+    #s.align_far_fcliffs()
+    #s.forwards_until_white_rfcliff_safe()
+    #s.align_close_fcliffs()
+    #m.backwards(300)    
+    #s.forwards_until_white_rfcliff_safe()
+    #s.forwards_through_line_rcliff()
+    s.wfollow_right_until_black_right(9999)
+    s.wfollow_right_until_white_right(9999)
+    s.wfollow_right_until_black_right(9999)
+    s.wfollow_right_until_white_right(9999)
+    s.turn_left_until_rfcliff_senses_white()
+    s.turn_left_until_rfcliff_senses_black()
+    m.turn_left(200)
+    # This turns the robot closer to 90 degrees
+    s.forwards_until_white_lfcliff()
+    s.forwards_through_line_lfcliff()
+    s.align_far_fcliffs()
+    s.align_far_fcliffs()
+    s.forwards_until_bump()
+    m.backwards(1000)
+    #g.turn_left_gyro(180)
+    m.turn_left()
+    m.turn_left()
     s.forwards_until_black_lfcliff()
-    s.align_close_fcliffs()
-    m.turn_right(117)
-    s.forwards_until_bump()
-    m.backwards(500)
-    m.turn_right(1700)
-    s.forwards_until_bump()
-    m.backwards(500)
-    m.turn_right(1400)
-    s.forwards_until_black_rfcliff_safe()
-    s.align_close_fcliffs()
-    s.forwards_until_bump()
-    m.backwards(500)
-    m.turn_right()
-    s.forwards_until_black_rfcliff_safe()
     s.align_close_fcliffs()    
-    m.turn_right()
-    s.forwards_until_white_rfcliff_safe()
-    s.forwards_until_black_rfcliff_safe()
+    s.align_close_fcliffs()
+    #m.turn_left(250)    
+    m.lower_arm()
+    msleep(500)
+    #left turn of doom.
+    m.backwards(900)
+    m.lift_arm(3, 1, c.ARM_HALF_UP_POS)
+    m.backwards(100)
+    m.lift_arm()
+    s.forwards_until_black_lfcliff()
     s.align_close_fcliffs()    
-    m.turn_right()
-    s.lfollow_rfcliff_smooth_until_bump()
-        
+    s.forwards_until_bump()
+    #m.backwards(200)
+    #g.turn_right_gyro()
+    m.turn_right(1650)   
+    s.forwards_until_white_rfcliff()
+    s.wfollow_left_until_black_right_front(9999)
+    s.align_close_fcliffs()
+    m.backwards(200)
+    #g.turn_right_gyro(30)
+    m.turn_right(c.RIGHT_TURN_TIME / 3)
+    m.backwards(600)
+    m.lower_arm(1, 1, c.ARM_DELIVERY_POS)
+    msleep(1000)
+    m.turn_left(c.LEFT_TURN_TIME / 3)    
+    #g.turn_left_gyro(90)
+    m.backwards(800)
+
 def magnet():
     m.turn_left()
     s.forwards_until_black_rfcliff_safe()
@@ -58,6 +74,7 @@ def magnet():
     s.align_close_fcliffs()    
     m.turn_right()
     s.lfollow_lfcliff_smooth_until_bump()
+
    
 def a(): 
     m.turn_right()
